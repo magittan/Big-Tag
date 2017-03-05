@@ -10,7 +10,9 @@ from random import shuffle
 from random import choice
 import datetime
 import pyrebase
-#import json
+import json
+import requests
+
 
 ######################################
 # App initialization
@@ -56,8 +58,19 @@ class User:
         self.taggedUsers.append(User)
     
     def update_TOD(self):
+        send_url = 'http://freegeoip.net/json'
+        r = requests.get(send_url)
+        j = json.loads(r.text)
+        lat = j['latitude']
+        lon = j['longitude']
+        coords = [lat,lon]
+
         self.timeOfTag = datetime.datetime.now()
-        self.locOfTag = 
+        self.locOfTag = coords
+
+
+coords = [lat,lon]
+print(coords)
     
     def get_userinfo(self):
         return self.name + " " + self.email + " " + str(self.code)
