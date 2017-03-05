@@ -38,8 +38,9 @@ class Database:
         self.firebase = pyrebase.initialize_app(config)
         self.auth = self.firebase.auth()
         self.db = self.firebase.database()
+        self.yourKey = 0
         
-    def register(self,name,email,password):        
+    def register(self,name,email,password,interest):        
         self.auth.create_user_with_email_and_password(email, password)
         #if "'registered': True" in register.text:
         #    self.logger.info("Registration suceeded!")
@@ -50,11 +51,11 @@ class Database:
         
         # data to save
         data = {
-            "name":name, "email":email, "password": password
+            "name":name, "email":email, "password": password, "interest": interest
         }
         # Pass the user's idToken to the push method
         self.db.child("users").push(data)
-
+        
     def pull_username(self,key):
         return self.db.child("users").child(key).get().val()["name"]
     
@@ -63,10 +64,26 @@ class Database:
 
     def pull_email(self,key):
         return self.db.child("users").child(key).get().val()["email"]
+
+    def pull_interest(self,key):
+        return self.db.child("users").child(key).get().val()["interest"]
         
-    def login(self,email,password):    
-        self.auth.sign_in_with_email_and_password(email, password)
+        
+    def login(self,email,password): # no error check  
+        for i in range(len(self.pullAllEmails())):
+            if (email.lower()==self.pullAllEmails()[i].lower()):
+                if (password==self.pullAllPasswords()[i]):
+                    self.yourKey = str(self.pullAllKeys()[i])
+                    print("Login Succesful")
+                    return self.yourKey
+                else:
+                    return 0
+                    #this is an error - error message/ wrong password
+        print("user doesn't exist")
     
+    def logout(self):
+        self.yourKey=0 # no error check
+        
     #def refreshtoken(self):
     #   # Refreshes the user's idToken in order to keep their session alive, kept open for 30 minutes
     #   self.auth.refresh(user['refreshToken'])
@@ -76,7 +93,33 @@ class Database:
         for user in self.db.child("users").get().val().keys():
             output.append(str(user))
         return output
-
+        
+    def pullAllEmails(self):
+        output = []
+        for e in self.db.child("users").child().get().each():
+            output.append(str(e.val()["email"]))
+        return output
+        
+    def pullAllNames(self): # we are going to intialized the game with everyone playing
+        output = []
+        for e in self.db.child("users").child().get().each():
+            output.append(str(e.val()["name"]))
+        return output
+        
+    def pullAllPasswords(self):
+        output = []
+        for e in self.db.child("users").child().get().each():
+            output.append(str(e.val()["password"]))
+        return output
+        
+    def pullAllInterests(self):
+        output = []
+        for e in self.db.child("users").child().get().each():
+            output.append(str(e.val()["interest"]))
+        return output
+        
+    def get_userkey(self):
+        print(self.yourKey)
 
 ##############################################################################
 class User:
@@ -164,6 +207,12 @@ class Game: # THE GAME WILL OPERATE ENTIRELY OFF OF KEYS, INFORMATION WILL BE GA
         else: 
             return "You are Dead"
             
+    def get_target(self,user):
+        if (user in self.inUsers):
+            return self.inUsers[(self.inUsers.index(user)+1)%len(self.inUsers)]
+        else: 
+            return "You are Dead"
+    
     def get_inUsers(self):
         return self.inUsers
     
@@ -177,37 +226,47 @@ class Game: # THE GAME WILL OPERATE ENTIRELY OFF OF KEYS, INFORMATION WILL BE GA
         for user in self.outUsers:
             output.append(user.get_TOL)
         
-        
+personalKey = 0
 #got to create some people first
 BigTag = Database()
-#BigTag.register("Jim","Jimdasd@lsajlkalgmail.com","1999jm")
-#BigTag.register("Serena","Simasda@slkgmail.com","1999Sm")
-#BigTag.register("Pip","puckaskjh@asdgmail.com","1999Pm")
-
-
+#BigTag.register("Jim","Jimdasd@lsajlkalgmail.com","1999jm","Boats")
+#BigTag.register("Serena","Simasda@slkgmail.com","1999Sm","Ships")
+#BigTag.register("Pip","puckaskjh@asdgmail.com","1999Pm","Planes")
+#BigTag.register("Ben","bealdskj@asdgmail.com","1999Bm","Trees")
+#BigTag.register("Leith","Ladiuwd@asdgmail.com","1999LEm","Math")
+#BigTag.register("Lucas","Cssdoijh@asdgmail.com","1999LAm","Bunnies")
+#BigTag.register("William","WZsadkah@asdgmail.com","1999Wm","Moths")
 
 g = Game(BigTag.pullAllKeys())
+print(BigTag.pullAllNames())
+print(BigTag.pullAllEmails())
+print(BigTag.pullAllPasswords())
+print(BigTag.pullAllInterests())
+print(BigTag.pullAllKeys())
+BigTag.login("WZsadkah@asdgmail.com","1999Wm")
+print(BigTag.get_userkey())
 
+#createPageOutput =[] # this should be what the create page needs to run
+#for i in g.get_inUsers():
+#    createPageOutput.append(BigTag.pull_username(i.get_name()))
+
+Starting sequence g.start_seq()
     
-
-createPageOutput =[] # this should be what the create page needs to run
-for i in g.get_inUsers():
-    createPageOutput.append(BigTag.pull_username(i.get_name()))
-
-    
+#g.get_targetName()
 #sending data to the google maps page
-g.get_TOT()
-g.get_TOL()
+#g.get_TOT()
+#g.get_TOL()
 #this data depends on what time it is
 
 
 #for i in range(50):
 #    print(g.add_user(str(i)).get_userinfo(BigTag))
-#g.start_seq()
+
 #for user in g.get_inUsers():
 #    print(g.get_targetName(user.get_name()))
 #    print(user.get_name()+" "+BigTag.pull_username(g.get_targetName(user.get_name())))
-#for i in range(20):
-#   tagger = choice(g.get_inUsers())
-#    g.remove_user(tagger,g.get_target(tagger).get_code())
-#    print(len(g.get_inUsers()))
+
+for i in range(5):
+    tagger = choice(g.get_inUsers())
+    g.remove_user(tagger,g.get_target(tagger).get_code())
+    print(len(g.get_inUsers()))
