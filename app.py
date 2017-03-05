@@ -37,42 +37,42 @@ class Database:
 
         self.firebase = pyrebase.initialize_app(config)
         self.auth = self.firebase.auth()
+        self.db = self.firebase.database()
         
     def register(self,name,email,password):        
-        register = self.auth.create_user_with_email_and_password(email, password)
+        self.auth.create_user_with_email_and_password(email, password)
         #if "'registered': True" in register.text:
         #    self.logger.info("Registration suceeded!")
         #else:
         #    self.logger.info("Registration failed.")
 
         # Get a reference to the database service
-        db = firebase.database()
+        
         # data to save
         data = {
             "name":name, "email":email, "password": password
         }
         # Pass the user's idToken to the push method
-        results = db.child("users").push(data)
+        self.db.child("users").push(data)
 
     def pull_username(self,key):
-        return db.child("users").child(key).get()["name"]
+        return self.db.child("users").child(key).get()["name"]
     
     def pull_password(self,key):
-        return db.child("users").child(key).get()["password"]
+        return self.db.child("users").child(key).get()["password"]
 
     def pull_email(self,key):
-        return db.child("users").child(key).get()["email"]
+        return self.db.child("users").child(key).get()["email"]
         
     def login(self,email,password):    
-        user = self.auth.sign_in_with_email_and_password(email, password)
+        self.auth.sign_in_with_email_and_password(email, password)
     
     def refreshtoken(self):
         # Refreshes the user's idToken in order to keep their session alive, kept open for 30 minutes
-        user = self.auth.refresh(user['refreshToken'])
+        self.auth.refresh(user['refreshToken'])
     
     def pullAllKeys(self): # we are going to intialized the game with everyone playing
-        return db.child("users").get() #unsure if this works
-    
+        return self.db.child("users").get()
 
 
 ##############################################################################
@@ -113,7 +113,7 @@ class User:
         self.locOfTag = coords
     
     def get_userinfo(self):
-        # rewrite
+        return Database.pull_username(self.name)
         
 
 class Game: # THE GAME WILL OPERATE ENTIRELY OFF OF KEYS, INFORMATION WILL BE GATHERED BASED ON KEYS
@@ -141,7 +141,7 @@ class Game: # THE GAME WILL OPERATE ENTIRELY OFF OF KEYS, INFORMATION WILL BE GA
         for user in self.inUsers:
             if (user.get_code()==code):
                 self.outUsers.append((self.inUsers.pop(self.inUsers.index(user))))
-                user.
+                user.update_TOD()
                 User.update_taggedUsers(user)
                 return True
         return False
@@ -158,16 +158,20 @@ class Game: # THE GAME WILL OPERATE ENTIRELY OFF OF KEYS, INFORMATION WILL BE GA
     def get_inUsers(self):
         return self.inUsers
         
-        
 #got to create some people first
 BigTag = Database()
-BigTag.register("Jim","Jim@gmail.com","1999jm")
-BigTag.register("Serena","Sim@gmail.com","1999Sm")
-BigTag.register("Pip","puck@gmail.com","1999Pm")
+BigTag.register("Jim","Jimdasd@lsajlkalgmail.com","1999jm")
+BigTag.register("Serena","Simasda@slkgmail.com","1999Sm")
+BigTag.register("Pip","puckaskjh@asdgmail.com","1999Pm")
 
 
 
-g = Game([])
+g = Game(Database.pullAllKeys())
+
+createPageOutput =[] # this should be what the create page needs to run
+for i in g.get_inUsers:
+    createPageOutput.append(Database.pull_username(i))
+
 for i in range(50):
     print(g.add_user(str(i), str(i)+"@gmail.com").get_userinfo())
 g.start_seq()
