@@ -1,6 +1,6 @@
 # Big-Tag
 
-AIzaSyCwenS8Clacwv8dA8lCz1WHCQwIFLkGxOs
+AIzaSyDANsv5pR_ChVtexCZbd5RXBiLoH-0EEls
 https://pypi.python.org/pypi/python-firebase/1.2
 
 So far the basic skeleton of the game is being created
@@ -47,7 +47,8 @@ Users can check the statistics from ongoing games
     Selecting the game to look at
     
 Next steps: JS would pull user information from FB with FB API https://developers.facebook.com/docs/javascript/howto/jquery/v2.8
-Next steps: Location of Tag will be recorded (Working on)
-Next steps: Time of Tags will be recorded (Working on)
-Next steps: Map of Tags https://developers.google.com/maps/documentation/javascript/geolocation
+Next steps: Location of Tag will be recorded (Working on) DONE
+Next steps: Time of Tags will be recorded (Working on) Export the Date better
+Next steps: Map of Tags https://developers.google.com/maps/documentation/javascript/geolocation DONE
+Next steps: the Tag page: exporting information about the details about a specific person
 
