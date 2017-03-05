@@ -1,5 +1,6 @@
 # Big-Tag
 
+AIzaSyDANsv5pR_ChVtexCZbd5RXBiLoH-0EEls
 https://pypi.python.org/pypi/python-firebase/1.2
 
 So far the basic skeleton of the game is being created
