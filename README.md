@@ -1,7 +1,5 @@
 # Big-Tag
 
-https://pypi.python.org/pypi/python-firebase/1.2
-
 So far the basic skeleton of the game is being created
 
 HTML/CSS functional Website: 
