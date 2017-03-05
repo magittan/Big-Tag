@@ -1,0 +1,68 @@
+<html>
+	<head>
+		<link href=”/static/style.css” rel=”stylesheet”>
+		<style>
+			div.tab {
+		    overflow: hidden;
+		    border: 1px solid #ccc;
+ 		    background-color: #f1f1f1;
+			}
+
+/* Style the links inside the tab */
+			div.tab a {
+  			  float: left;
+  			  display: block;
+  			  color: black;
+  			  text-align: center;
+  			  padding: 14px 16px;
+  			  text-decoration: none;
+  			  transition: 0.3s;
+  			  font-size: 17px;
+			}
+
+/* Change background color of links on hover */
+			div.tab a:hover {
+ 			   background-color: #ddd;
+			}
+
+/* Create an active/current tablink class */
+			div.tab a:focus, .active {
+  			  background-color: #ccc;
+			}
+
+/* Style the tab content */
+			.tabcontent {
+  			  display: none;
+  			  padding: 6px 12px;
+  			  border: 1px solid #ccc;
+  			  border-top: none;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="tab">
+ 	 		<a href="javascript:void(0)" class="tablinks" onclick="openCity(event, 'new-game')" id="defaultOpen">New Game</a>
+ 	 		<a href="javascript:void(0)" class="tablinks" onclick="openCity(event, 'log-tag')">Log Tag</a>
+  			<a href="javascript:void(0)" class="tablinks" onclick="openCity(event, 'stat')">Stats</a>
+  			<a href="javascript:void(0)" class="tablinks" onclick="openCity(event, 'profile')">Profile</a>
+		</div>
+
+		<div class = "home">
+		<img src="The Big Tag Logo.jpg" alt="some_text" style="width:340px;height:260px;">
+			<input type="text" id="name">
+
+		</div>
+
+
+		<div id="new-game", class = "tabcontent">
+			<h3>New Game</h3>
+			
+		</div>
+		<script>
+			// Get the element with id="defaultOpen" and click on it
+			document.getElementById("defaultOpen").click();
+		</script>
+
+	</body>
+</html>
