@@ -1,3 +1,4 @@
+
 <!DOCTYPE HTML>
 <!--
 	Alpha by HTML5 UP
@@ -12,6 +13,10 @@
 		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+		<script src="https://code.jquery.com/jquery-3.1.1.min.js"
+      	integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+      	crossorigin="anonymous"></script>
+		<script src="main.js"></script>
 	</head>
 	<style>
 	body {
@@ -31,18 +36,18 @@
 					
 					<nav id="nav">
 						<ul>
-							<li><a href="index.html">Home</a></li>
+							<li><a href="home.html">Home</a></li>
 							<li>
 								<a href="#" class="icon fa-angle-down">Get Tagging</a>
 								<ul>
-									<li><a id="new-game" href="generic.html">New Game</a></li>
-									<li><a id="log-tag" href="contact.html">Log Tags</a></li>
-									<li><a if="stats" href="elements.html">Stats</a></li>
+									<li><a id="new-game" href="newgame.html">New Game</a></li>
+									<li><a id="log-tag" href="logtags.html">Log Tags</a></li>
+									<li><a id="stats" href="statistics.html">Tags Near You</a></li>
 									<li>
 										<a href="#">Profile</a>
 										<ul>
 											<li><a id="view-profile" href="elements.html">View Profile</a></li>
-											<li><a id="sign-out" href="#">Sign Out</a></li>
+											<li><a id="sign-out" href="login.html">Sign Out</a></li>
 										</ul>
 									</li>
 								</ul>
@@ -59,17 +64,35 @@
 				<section id="main" class="container">
 					<header>
 						<h2>About to Start Something</h2>
-						
+						<p>"Tagging is an art, not a game."</p>
+						<br />
+						<p>~Edgar Allen Emerson</p>
 					</header>
 					<div class="box">
 						<div class="row uniform 50%">
 							<div class="12u">
 								<input type="text" name="name" id="game-name" value="" placeholder="Enter Name Of Game" />
 							</div>
-							<li><input type="submit" href="contact.html"/></li>
+							<ul><button class="button" type="button" id="newGameSubmit">Start New Game</button></ul>
 						</div>
 						<div class="box special">
-							<h1>Player Database<h1>
+							<h1>Active Players<h1>
+							<table>
+  <tr>
+							<td>Jim</td>
+							<td>Serena</td>
+							<td>Pip</td>
+							</tr>
+							<td>Ben</td>
+							<td>Letih</td>
+							<td>Lucas</td>
+							<tr>
+							<td>William</td>
+							<td>Demi</td>
+							<td>Beyonce</td>
+							</tr>
+							</table>
+
 						</div>
 					</div>
 				</section>
@@ -85,7 +108,7 @@
 						<li><a href="#" class="icon fa-google-plus"><span class="label">Google+</span></a></li>
 					</ul>
 					<ul class="copyright">
-						<li>&copy; Untitled. All rights reserved.</li>
+						<li>&copy; The Big Tag. All rights reserved.</li>
 					</ul>
 				</footer>
 
