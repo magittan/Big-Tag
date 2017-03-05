@@ -74,12 +74,10 @@ class Database:
             if (email.lower()==self.pullAllEmails()[i].lower()):
                 if (password==self.pullAllPasswords()[i]):
                     self.yourKey = str(self.pullAllKeys()[i])
-                    print("Login Succesful")
                     return self.yourKey
                 else:
                     return 0
                     #this is an error - error message/ wrong password
-        print("user doesn't exist")
     
     def logout(self):
         self.yourKey=0 # no error check
@@ -225,6 +223,11 @@ class Game: # THE GAME WILL OPERATE ENTIRELY OFF OF KEYS, INFORMATION WILL BE GA
         output = []
         for user in self.outUsers:
             output.append(user.get_TOL)
+
+    def get_user(self,name):
+        for user in self.inUsers:
+            if (user.get_name==name)
+                return user
         
 personalKey = 0
 #got to create some people first
@@ -235,23 +238,27 @@ BigTag = Database()
 #BigTag.register("Ben","bealdskj@asdgmail.com","1999Bm","Trees")
 #BigTag.register("Leith","Ladiuwd@asdgmail.com","1999LEm","Math")
 #BigTag.register("Lucas","Cssdoijh@asdgmail.com","1999LAm","Bunnies")
-#BigTag.register("William","WZsadkah@asdgmail.com","1999Wm","Moths")
+BigTag.register(username,email,password,interest)
 
 g = Game(BigTag.pullAllKeys())
-print(BigTag.pullAllNames())
+print(BigTag.pullAllNames()) #database of names
 print(BigTag.pullAllEmails())
 print(BigTag.pullAllPasswords())
 print(BigTag.pullAllInterests())
 print(BigTag.pullAllKeys())
-BigTag.login("WZsadkah@asdgmail.com","1999Wm")
-print(BigTag.get_userkey())
+BigTag.login(loginEmail,loginPassword)
+you = g.get_user(Bigtag.get_userkey())
+print(BigTag.get_userkey()) #player code
+BigTag.pull_username(g.get_targetName(you)) #target key
+
+#BigTag.pull_interests
 
 #createPageOutput =[] # this should be what the create page needs to run
 #for i in g.get_inUsers():
 #    createPageOutput.append(BigTag.pull_username(i.get_name()))
 
 Starting sequence g.start_seq()
-    
+g.remove_user(you,targetCode)
 #g.get_targetName()
 #sending data to the google maps page
 #g.get_TOT()
@@ -268,5 +275,37 @@ Starting sequence g.start_seq()
 
 for i in range(5):
     tagger = choice(g.get_inUsers())
-    g.remove_user(tagger,g.get_target(tagger).get_code())
+    
     print(len(g.get_inUsers()))
+
+
+@app.route("/newGame")
+def newGame():
+    print "newGame load"
+    gameName = request.json['gameName']
+    print "newGame complete"
+
+@app.route("/targetCode")
+def targetCodeSubmit():
+    print "targetCode load"
+    targetCode = request.json['targetCode']
+    print "targetCode complete"
+
+@app.route("/signUp")
+def signUp():
+    print "signUp load"
+    email = request.json['email']
+    username = request.json['username']
+    password = request.json['password']
+    interest = request.json['interest']
+    print "signUp complete"
+
+@app.route("/login")
+def login():
+    print "login load"
+    loginEmail = request.json['email']
+    loginPassword = request.json['password']
+    print "login complete"
+
+if __name__ == "__main__":
+    app.run()
