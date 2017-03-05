@@ -226,7 +226,7 @@ class Game: # THE GAME WILL OPERATE ENTIRELY OFF OF KEYS, INFORMATION WILL BE GA
 
     def get_user(self,name):
         for user in self.inUsers:
-            if (user.get_name==name)
+            if (user.get_name==name):
                 return user
         
 personalKey = 0
@@ -237,8 +237,28 @@ BigTag = Database()
 #BigTag.register("Pip","puckaskjh@asdgmail.com","1999Pm","Planes")
 #BigTag.register("Ben","bealdskj@asdgmail.com","1999Bm","Trees")
 #BigTag.register("Leith","Ladiuwd@asdgmail.com","1999LEm","Math")
-#BigTag.register("Lucas","Cssdoijh@asdgmail.com","1999LAm","Bunnies")
-BigTag.register(username,email,password,interest)
+#BigTag.register("Lucas","Cssasdaijh@asdgmail.com","1999LAm","Bunnies")
+
+
+#BigTag.register("Demi","Cssawqoiedoijh@asdgmail.com","1999LAm","Bunnies")
+#BigTag.register("Beyonce","Cqwowdioassdoijh@asdgmail.com","1999LAm","Bunnies")
+#BigTag.register("Kanye","Cssdoijh@asdgmail.com","1999LAm","Bunnies")
+#BigTag.register("John","Cssdoijh@asdgmail.com","1999LAm","Bunnies")
+#BigTag.register("Uncle Same","Cssdoijh@asdgmail.com","1999LAm","Bunnies")
+#BigTag.register("The Spiciest Memelord","Cssdoijh@asdgmail.com","1999LAm","Bunnies")
+#BigTag.register("Pupper","Cssdoijh@asdgmail.com","1999LAm","Bunnies")
+#BigTag.register("Thelegend27","Cssdoijh@asdgmail.com","1999LAm","Bunnies")
+#BigTag.register("Harambe","Cssdoijh@asdgmail.com","1999LAm","Bunnies")
+#BigTag.register("Rick Astley","Cssdoijh@asdgmail.com","1999LAm","Bunnies")
+#BigTag.register("Fermat","Cssdoijh@asdgmail.com","1999LAm","Bunnies")
+#BigTag.register("Hawking","Cssdoijh@asdgmail.com","1999LAm","Bunnies")
+username = "Lucas"
+email = "Cssdoijh@asdgmail.com"
+password = "1999LAm"
+interest = "Bunnies"
+loginEmail = "Cssdoijh@asdgmail.com"
+loginPassword = "1999LAm"
+#BigTag.register(username,email,password,interest)
 
 g = Game(BigTag.pullAllKeys())
 print(BigTag.pullAllNames()) #database of names
@@ -247,9 +267,9 @@ print(BigTag.pullAllPasswords())
 print(BigTag.pullAllInterests())
 print(BigTag.pullAllKeys())
 BigTag.login(loginEmail,loginPassword)
-you = g.get_user(Bigtag.get_userkey())
-print(BigTag.get_userkey()) #player code
-BigTag.pull_username(g.get_targetName(you)) #target key
+you = g.get_user(BigTag.get_userkey())
+print(BigTag.get_userkey()) #player key
+BigTag.pull_username(g.get_targetName(you)) #target name
 
 #BigTag.pull_interests
 
@@ -257,7 +277,7 @@ BigTag.pull_username(g.get_targetName(you)) #target key
 #for i in g.get_inUsers():
 #    createPageOutput.append(BigTag.pull_username(i.get_name()))
 
-Starting sequence g.start_seq()
+g.start_seq()
 g.remove_user(you,targetCode)
 #g.get_targetName()
 #sending data to the google maps page
@@ -277,35 +297,3 @@ for i in range(5):
     tagger = choice(g.get_inUsers())
     
     print(len(g.get_inUsers()))
-
-
-@app.route("/newGame")
-def newGame():
-    print "newGame load"
-    gameName = request.json['gameName']
-    print "newGame complete"
-
-@app.route("/targetCode")
-def targetCodeSubmit():
-    print "targetCode load"
-    targetCode = request.json['targetCode']
-    print "targetCode complete"
-
-@app.route("/signUp")
-def signUp():
-    print "signUp load"
-    email = request.json['email']
-    username = request.json['username']
-    password = request.json['password']
-    interest = request.json['interest']
-    print "signUp complete"
-
-@app.route("/login")
-def login():
-    print "login load"
-    loginEmail = request.json['email']
-    loginPassword = request.json['password']
-    print "login complete"
-
-if __name__ == "__main__":
-    app.run()
