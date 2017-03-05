@@ -56,23 +56,26 @@ class Database:
         self.db.child("users").push(data)
 
     def pull_username(self,key):
-        return self.db.child("users").child(key).get()["name"]
+        return self.db.child("users").child(key).get().val()["name"]
     
     def pull_password(self,key):
-        return self.db.child("users").child(key).get()["password"]
+        return self.db.child("users").child(key).get().val()["password"]
 
     def pull_email(self,key):
-        return self.db.child("users").child(key).get()["email"]
+        return self.db.child("users").child(key).get().val()["email"]
         
     def login(self,email,password):    
         self.auth.sign_in_with_email_and_password(email, password)
     
-    def refreshtoken(self):
-        # Refreshes the user's idToken in order to keep their session alive, kept open for 30 minutes
-        self.auth.refresh(user['refreshToken'])
+    #def refreshtoken(self):
+    #   # Refreshes the user's idToken in order to keep their session alive, kept open for 30 minutes
+    #   self.auth.refresh(user['refreshToken'])
     
     def pullAllKeys(self): # we are going to intialized the game with everyone playing
-        return self.db.child("users").get()
+        output = []
+        for user in self.db.child("users").get().val().keys():
+            output.append(str(user))
+        return output
 
 
 ##############################################################################
@@ -82,8 +85,8 @@ class User:
         self.name = name
         self.code = code
         self.taggedUsers= []
-        self.timeOfTag
-        self.locOfTag
+        self.timeOfTag = str(datetime.datetime.now())
+        self.locOfTag = [0,0]
 
 ##############################################################################
 #Eventually can be replaced with calls to a User in the Data base
@@ -109,10 +112,16 @@ class User:
         lon = j['longitude']
         coords = [lat,lon]
 
-        self.timeOfTag = datetime.datetime.now()
+        self.timeOfTag = str(datetime.datetime.now())
         self.locOfTag = coords
     
-    def get_userinfo(self):
+    def get_TOT(self):
+        return self.timeOfTag
+        
+    def get_TOL(self):
+        return self.locOfTag
+        
+    def get_userinfo(self,Database):
         return Database.pull_username(self.name)
         
 
@@ -133,7 +142,7 @@ class Game: # THE GAME WILL OPERATE ENTIRELY OFF OF KEYS, INFORMATION WILL BE GA
                     temp+=1
             if (temp == len(self.inUsers)):
                 check=False
-        newUser = User(nametempCode)
+        newUser = User(name, tempCode)
         self.inUsers.append(newUser)
         return newUser
     
@@ -157,27 +166,48 @@ class Game: # THE GAME WILL OPERATE ENTIRELY OFF OF KEYS, INFORMATION WILL BE GA
             
     def get_inUsers(self):
         return self.inUsers
+    
+    def get_TOT(self): 
+        output = []
+        for user in self.outUsers:
+            output.append(user.get_TOT())
+    
+    def get_TOL(self): 
+        output = []
+        for user in self.outUsers:
+            output.append(user.get_TOL)
+        
         
 #got to create some people first
 BigTag = Database()
-BigTag.register("Jim","Jimdasd@lsajlkalgmail.com","1999jm")
-BigTag.register("Serena","Simasda@slkgmail.com","1999Sm")
-BigTag.register("Pip","puckaskjh@asdgmail.com","1999Pm")
+#BigTag.register("Jim","Jimdasd@lsajlkalgmail.com","1999jm")
+#BigTag.register("Serena","Simasda@slkgmail.com","1999Sm")
+#BigTag.register("Pip","puckaskjh@asdgmail.com","1999Pm")
 
 
 
-g = Game(Database.pullAllKeys())
+g = Game(BigTag.pullAllKeys())
+
+    
 
 createPageOutput =[] # this should be what the create page needs to run
-for i in g.get_inUsers:
-    createPageOutput.append(Database.pull_username(i))
+for i in g.get_inUsers():
+    createPageOutput.append(BigTag.pull_username(i.get_name()))
 
-for i in range(50):
-    print(g.add_user(str(i), str(i)+"@gmail.com").get_userinfo())
-g.start_seq()
-for user in g.get_inUsers():
-    print(user.get_name()+" "+database.pull_username(g.get_targetName(user)))
-for i in range(20):
-    tagger = choice(g.get_inUsers())
-    g.remove_user(tagger,g.get_target(tagger).get_code())
-    print(len(g.get_inUsers()))
+    
+#sending data to the google maps page
+g.get_TOT()
+g.get_TOL()
+#this data depends on what time it is
+
+
+#for i in range(50):
+#    print(g.add_user(str(i)).get_userinfo(BigTag))
+#g.start_seq()
+#for user in g.get_inUsers():
+#    print(g.get_targetName(user.get_name()))
+#    print(user.get_name()+" "+BigTag.pull_username(g.get_targetName(user.get_name())))
+#for i in range(20):
+#   tagger = choice(g.get_inUsers())
+#    g.remove_user(tagger,g.get_target(tagger).get_code())
+#    print(len(g.get_inUsers()))
