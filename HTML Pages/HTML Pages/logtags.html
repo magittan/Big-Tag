@@ -12,6 +12,10 @@
 		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+		<script src="https://code.jquery.com/jquery-3.1.1.min.js"
+      	integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+      	crossorigin="anonymous"></script>
+		<script src="main.js"></script>
 	</head>
 	<style>
 	body {
@@ -20,6 +24,16 @@
 
 	h2 {
 		color: black;
+	}
+
+	h1 {
+		font-size: 25px;
+	}
+	.button {
+		background-color: red;
+	}
+	.button:hover {
+		background-color: orange;
 	}
 	</style>
 	<body class="landing">
@@ -30,18 +44,18 @@
 					
 					<nav id="nav">
 						<ul>
-							<li><a href="index.html">Home</a></li>
+							<li><a href="home.html">Home</a></li>
 							<li>
 								<a href="#" class="icon fa-angle-down">Get Tagging</a>
 								<ul>
-									<li><a id="new-game" href="generic.html">New Game</a></li>
-									<li><a id="log-tag" href="contact.html">Log Tags</a></li>
-									<li><a if="stats" href="elements.html">Stats</a></li>
+									<li><a id="new-game" href="newgame.html">New Game</a></li>
+									<li><a id="log-tag" href="logtags.html">Log Tags</a></li>
+									<li><a if="stats" href="statistics.html">Stats</a></li>
 									<li>
 										<a href="#">Profile</a>
 										<ul>
 											<li><a id="view-profile" href="elements.html">View Profile</a></li>
-											<li><a id="sign-out" href="#">Sign Out</a></li>
+											<li><a id="sign-out" href="login.html">Sign Out</a></li>
 										</ul>
 									</li>
 								</ul>
@@ -56,21 +70,31 @@
 			<!-- Main -->
 				<section id="main" class="container 75%">
 					<header>
-						<h2>Aaron A. Aaronson</h2>
-						<span class="picture"><img src="person.png" alt="" style="width:300px;height:300px;"/></span>
+						<h2>Find Your Target!</h2>
+						<p>But try not to be stalkerish</p>
 					</header>
+						<div class="box special">
+						<div class="row uniform 50%">
+							<div class="6u 12u(mobilep)">
+								<h1>Aaron A. Aaronson</h1>
+								<span class="picture"><img src="person.png" alt="" style="width:300px;height:300px;"/></span>
+							</div>
+							<div class="6u 12u(mobilep)">
+								<h1>Interests:</h1>
+							</div>
+						</div>
+						</div>
     					<div class="box">
 						<form method="post" action="#">
 							<div class="row uniform 50%">
 								<div class="6u 12u(mobilep)">
-									<input type="text" name="name" id="name" value="" placeholder="Enter Enemy Code" />
+									<input type="text" name="name" id="targetCode" value="" placeholder="Enter Target Code" />
 								</div>
 								<div class="6u 12u(mobilep)">
-									<li><input type="submit" value="Submit"/></li>
+									<ul><button class = "button" type="button" id="targetCodeSubmit">Tag</button></ul>
 								</div>
 								<div class="12u">
 									<p>My code</p>
-
 							</div>
 						</form>
 					</div>
