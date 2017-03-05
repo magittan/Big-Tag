@@ -278,7 +278,7 @@ BigTag.pull_username(g.get_targetName(you)) #target name
 #    createPageOutput.append(BigTag.pull_username(i.get_name()))
 
 g.start_seq()
-g.remove_user(you,targetCode)
+
 #g.get_targetName()
 #sending data to the google maps page
 #g.get_TOT()
@@ -295,5 +295,5 @@ g.remove_user(you,targetCode)
 
 for i in range(5):
     tagger = choice(g.get_inUsers())
-    
+    g.remove_user(tagger,g.get_target(tagger).get_code())
     print(len(g.get_inUsers()))
