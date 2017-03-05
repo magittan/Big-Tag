@@ -44,3 +44,9 @@ Going to be developed later!
 Users can check the statistics from ongoing games
   Required inputs: 
     Selecting the game to look at
+    
+Next steps: JS would pull user information from FB with FB API
+Next steps: Location of Tag will be recorded
+Next steps: Time of Tags will be recorded
+Next steps: Map of Tags https://developers.google.com/maps/documentation/javascript/geolocation
+
